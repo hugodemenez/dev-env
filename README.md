@@ -20,5 +20,8 @@ There are different files
 - .zshrc is the file that configure the shell (especially maps the vim to nvim command)
 - .config/yabai/yabairc is the file that configure shortcuts used 
 
+For faster implementation. a bash script is in the repo
+To run the bash script, use `chmod 755 script.sh`
+Then use `./script.sh`
 
-> Last update on 23 Oct 2023
+> Last update on 24 Oct 2023
