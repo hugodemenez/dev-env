@@ -12,4 +12,13 @@ This repository contains most of my configuration files that I use on my MacBook
 
 If you are on a Linux system, you won't encounter any difficulty in using the same configuration.
 
+## Config
+
+There are different files 
+- .tmux.conf is the file that configure shortcuts that I use in tmux
+- .config/nvim/init.lua is the file that configure neovim (theme, shortcut, plugins)
+- .zshrc is the file that configure the shell (especially maps the vim to nvim command)
+- .config/yabai/yabairc is the file that configure shortcuts used 
+
+
 > Last update on 23 Oct 2023
