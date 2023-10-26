@@ -66,7 +66,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'onedark',
+        theme = '16color',
         component_separators = '|',
         section_separators = '',
       },
@@ -80,6 +80,15 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
+  },
+
+  -- Fuzzy Finder (files, lsp, etc)
+  {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
   },
 
   -- Completion plugin 
@@ -339,9 +348,11 @@ vim.o.termguicolors = true
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>e', ':NvimTreeToggle<CR>', {
-  noremap = true
-})
+vim.keymap.set({ 'n', 'v' }, '<leader>g', ':Git<CR>', { noremap = true})
+vim.keymap.set({ 'n', 'v' }, '<leader>e', ':Explore<CR>', { noremap = true})
+vim.keymap.set({ 'n', 'v' }, '<leader>j', ':wincmd j<CR>', { noremap = true})
+vim.keymap.set({ 'n', 'v' }, '<leader>k', ':wincmd k<CR>', { noremap = true})
+vim.keymap.set({ 'n', 'v' }, '<leader>s', ':Telescope  find_files<CR>', { noremap = true})
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -361,17 +372,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- document existing key chains
 require('which-key').register {
   ['<leader>e'] = { name = '[E]xplore', _ = 'which_key_ignore' },
-  ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-  ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-  ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
-  ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-  ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
 }
-
-
-
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
