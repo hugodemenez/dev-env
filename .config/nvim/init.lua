@@ -1,6 +1,8 @@
+-- Map leader to space
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Install lazy.nvim as plugin manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -14,8 +16,13 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Load lazy.nvim and plugins
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
+  -- Adding coding activity tracking
+  'wakatime/vim-wakatime',
+
+  -- Adding Copilot
+  'github/copilot.vim',
 
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -25,10 +32,12 @@ require('lazy').setup({
   'tpope/vim-sleuth',
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  'folke/which-key.nvim',
+
+  -- Black theme for neovim
   {
     'projekt0n/github-nvim-theme',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    lazy = false, -- make sure we load this during startup
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('github-theme').setup({
