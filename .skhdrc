@@ -17,5 +17,6 @@ shift + alt - 9 : yabai -m window --space 9 && yabai -m window --focus recent
 
 # Open / Focus on app
 shift + alt - s : open -a Safari
-shift + alt - m : open -a Mail
+shift + alt - o : open -a Mail 
 shift + alt - t : open -a Terminal
+shift + alt - c : open -a Visual\ Studio\ Code
