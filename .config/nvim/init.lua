@@ -46,7 +46,7 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
-  -- Black theme for neovim
+  -- Github theme for neovim
   {
     'projekt0n/github-nvim-theme',
     lazy = false, -- make sure we load this during startup
@@ -54,9 +54,24 @@ require('lazy').setup({
     config = function()
       require('github-theme').setup({
       })
-      vim.cmd('colorscheme github_dark_high_contrast')
     end,
   },
+
+  -- Auto switch between light and dark  theme
+  {
+  "f-person/auto-dark-mode.nvim",
+  config = {
+    update_interval = 1000,
+    set_dark_mode = function()
+      vim.api.nvim_set_option("background", "dark")
+      vim.cmd('colorscheme github_dark_high_contrast')
+    end,
+    set_light_mode = function()
+      vim.api.nvim_set_option("background", "light")
+      vim.cmd('colorscheme github_light_high_contrast')
+    end,
+  },
+}
 
   -- Information bar at bottom
   {
