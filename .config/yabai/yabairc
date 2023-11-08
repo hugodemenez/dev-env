@@ -12,12 +12,12 @@ yabai -m config mouse_action2 resize
 
 yabai -m mouse_drop_action swap
 
-# padding set to 0px
-yabai -m config top_padding 8
-yabai -m config bottom_padding 8
-yabai -m config left_padding 8
-yabai -m config right_padding 8
-yabai -m config window_gap 8
+# padding set to 24px
+yabai -m config top_padding 24
+yabai -m config bottom_padding 24
+yabai -m config left_padding 24
+yabai -m config right_padding 24
+yabai -m config window_gap 24
 
 # float system preferences. Most of these just diable Yabai form resizing them.
 yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
