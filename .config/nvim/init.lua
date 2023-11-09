@@ -31,7 +31,7 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-  -- Useful plugin to show you pending keybinds.
+  -- Useful plugin to show pending keybinds.
   'folke/which-key.nvim',
 
   {
@@ -45,40 +45,6 @@ require('lazy').setup({
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
-
-  -- Black theme for neovim
-  --  {
-  --    'projekt0n/github-nvim-theme',
-  --    lazy = false, -- make sure we load this during startup
-  --    priority = 1000, -- make sure to load this before all the other start plugins
-  --    config = function()
-  --      require('github-theme').setup({
-  --           palettes = {
-  --            -- Custom duskfox with black background
-  --            github_dark_high_contrast = {
-  --              bg1 = '#000000', -- Black background
-  --              bg0 = '#1d1d2b', -- Alt backgrounds (floats, statusline, ...)
-  --              bg3 = '#121820', -- 55% darkened from stock
-  --              sel0 = '#131b24', -- 55% darkened from stock
-  --            },
-  --          },
-  --          specs = {
-  --            all = {
-  --              inactive = 'bg0', -- Default value for other styles
-  --            },
-  --            github_dark_dimmed = {
-  --              inactive = '#090909', -- Slightly lighter then black background
-  --            },
-  --          },
-  --          groups = {
-  --            all = {
-  --              NormalNC = { fg = 'fg1', bg = 'inactive' }, -- Non-current windows
-  --            },
-  --        },
-  --      })
-  --      vim.cmd('colorscheme github_dark_high_contrast')
-  --    end,
-  --  },
 
     -- Github theme for neovim
   {
@@ -138,6 +104,9 @@ require('lazy').setup({
       'nvim-lua/plenary.nvim',
     },
   },
+
+  -- Harpoon for quick navigation
+  {'ThePrimeagen/harpoon'},
 
   -- Completion plugin 
   {
@@ -354,7 +323,8 @@ require('lazy').setup({
   {'akinsho/toggleterm.nvim', version = "*", config = function()
     require("toggleterm").setup{
       direction = 'float',
-      open_mapping = [[<leader>|]],
+      open_mapping = [[<C-\>]],
+      insert_mappings = false,
     }
   end
   },
@@ -412,6 +382,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>gb', ':GBrowse<CR>', { noremap = true})
 vim.keymap.set({ 'n', 'v' }, '<leader>wj', ':wincmd j<CR>', { noremap = true})
 vim.keymap.set({ 'n', 'v' }, '<leader>wk', ':wincmd k<CR>', { noremap = true})
 vim.keymap.set({ 'n', 'v' }, '<leader>s', ':Telescope  find_files<CR>', { noremap = true})
+vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], { noremap = true})
 
 
 -- document existing key chains
