@@ -24,4 +24,4 @@ For faster implementation. a bash script is in the repo
 To run the bash script, use `chmod 755 script.sh`
 Then use `./script.sh`
 
-> Last update on 24 Oct 2023
+> Last update on 9 Nov 2023
