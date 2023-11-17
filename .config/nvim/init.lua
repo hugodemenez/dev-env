@@ -24,6 +24,54 @@ require('lazy').setup({
   -- Adding Copilot
   'github/copilot.vim',
 
+  -- Adding github line modification details
+  {'lewis6991/gitsigns.nvim',
+  config=function()
+    require('gitsigns').setup {
+      signs = {
+        add          = { text = '│' },
+        change       = { text = '│' },
+        delete       = { text = '_' },
+        topdelete    = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked    = { text = '┆' },
+      },
+      signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+      numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+      linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+      word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+      watch_gitdir = {
+        follow_files = true
+      },
+      attach_to_untracked = true,
+      current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+      current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        delay = 1000,
+        ignore_whitespace = false,
+        virt_text_priority = 100,
+      },
+      current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+      sign_priority = 6,
+      update_debounce = 100,
+      status_formatter = nil, -- Use default
+      max_file_length = 40000, -- Disable if file is longer than this (in lines)
+      preview_config = {
+        -- Options passed to nvim_open_win
+        border = 'single',
+        style = 'minimal',
+        relative = 'cursor',
+        row = 0,
+        col = 1
+      },
+      yadm = {
+        enable = false
+      },
+    }
+  end
+  },
+
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -46,7 +94,7 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
-    -- Github theme for neovim
+  -- Github theme for neovim
   {
     'projekt0n/github-nvim-theme',
     lazy = false, -- make sure we load this during startup
@@ -73,6 +121,9 @@ require('lazy').setup({
     },
   },
 
+  -- Adding transparency
+  {"xiyaowong/transparent.nvim"},
+
   -- Information bar at bottom
   {
     -- Set lualine as statusline
@@ -83,6 +134,51 @@ require('lazy').setup({
         icons_enabled = true,
         component_separators = '|',
         section_separators = '',
+        theme = function()
+          local colors = {
+              darkgray = "#16161d",
+              gray = "#727169",
+              innerbg = nil,
+              outerbg = "#16161D",
+              normal = "#7e9cd8",
+              insert = "#98bb6c",
+              visual = "#ffa066",
+              replace = "#e46876",
+              command = "#e6c384",
+          }
+          return {
+              inactive = {
+                  a = { fg = colors.gray, bg = colors.outerbg, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+              visual = {
+                  a = { fg = colors.darkgray, bg = colors.visual, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+              replace = {
+                  a = { fg = colors.darkgray, bg = colors.replace, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+              normal = {
+                  a = { fg = colors.darkgray, bg = colors.normal, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+              insert = {
+                  a = { fg = colors.darkgray, bg = colors.insert, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+              command = {
+                  a = { fg = colors.darkgray, bg = colors.command, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+          }
+        end
       },
     },
   },
@@ -92,8 +188,17 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
+      'nvim-treesitter/playground',
     },
     build = ':TSUpdate',
+    config = function()
+      require("nvim-treesitter.configs").setup {
+        highlight = {
+          enable = true, -- false will disable the whole extension
+          disable = {}, -- list of language that will be disabled
+        },
+      }
+    end,
   },
 
   -- Fuzzy Finder (files, lsp, etc)
@@ -383,6 +488,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>wj', ':wincmd j<CR>', { noremap = true})
 vim.keymap.set({ 'n', 'v' }, '<leader>wk', ':wincmd k<CR>', { noremap = true})
 vim.keymap.set({ 'n', 'v' }, '<leader>s', ':Telescope  find_files<CR>', { noremap = true})
 vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], { noremap = true})
+
 
 
 -- document existing key chains
