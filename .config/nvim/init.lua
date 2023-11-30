@@ -211,7 +211,16 @@ require('lazy').setup({
   },
 
   -- Harpoon for quick navigation
-  {'ThePrimeagen/harpoon'},
+  {'ThePrimeagen/harpoon', config = function()
+    require("telescope").load_extension('harpoon')
+    -- Add keybindings
+      vim.keymap.set({ 'n' }, '<leader>hm', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { noremap = true})
+      vim.keymap.set({ 'n' }, '<leader>hf', ':lua require("harpoon.mark").add_file()<CR>', { noremap = true})
+      vim.keymap.set({ 'n' }, '<leader>1', ':lua require("harpoon.ui").nav_file(1)  <CR>', { noremap = true})
+      vim.keymap.set({ 'n' }, '<leader>2', ':lua require("harpoon.ui").nav_file(2)  <CR>', { noremap = true})
+      vim.keymap.set({ 'n' }, '<leader>3', ':lua require("harpoon.ui").nav_file(3)  <CR>', { noremap = true})
+  end
+  },
 
   -- Completion plugin 
   {
@@ -498,6 +507,7 @@ require('which-key').register {
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>t'] = { name = '[T]erminal', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]indow', _ = 'which_key_ignore' },
+  ['<leader>h'] = { name = '[H]arpoon', _ = 'which_key_ignore' },
 }
 
 -- Remap for dealing with word wrap
@@ -514,5 +524,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+vim.cmd('highlight! HarpoonInactive guibg=NONE guifg=#63698c')
+vim.cmd('highlight! HarpoonActive guibg=NONE guifg=white')
+vim.cmd('highlight! HarpoonNumberActive guibg=NONE guifg=#7aa2f7')
+vim.cmd('highlight! HarpoonNumberInactive guibg=NONE guifg=#7aa2f7')
+vim.cmd('highlight! TabLineFill guibg=NONE guifg=white')
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
