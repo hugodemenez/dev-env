@@ -1,22 +1,21 @@
 # maximize a window
-shift + alt - m : yabai -m window --toggle zoom-fullscreen
+ctrl - m : yabai -m window --toggle zoom-fullscreen
 
 # balance out tree of windows (resize to occupy same area)
-shift + alt - e : yabai -m space --balance
+ctrl - e : yabai -m space --balance
 
 # move window to space #
-shift + alt - 1 : yabai -m window --space 1 && yabai -m window --focus recent
-shift + alt - 2 : yabai -m window --space 2 && yabai -m window --focus recent
-shift + alt - 3 : yabai -m window --space 3 && yabai -m window --focus recent
-shift + alt - 4 : yabai -m window --space 4 && yabai -m window --focus recent
-shift + alt - 5 : yabai -m window --space 5 && yabai -m window --focus recent
-shift + alt - 6 : yabai -m window --space 6 && yabai -m window --focus recent
-shift + alt - 7 : yabai -m window --space 7 && yabai -m window --focus recent
-shift + alt - 8 : yabai -m window --space 8 && yabai -m window --focus recent
-shift + alt - 9 : yabai -m window --space 9 && yabai -m window --focus recent
+ctrl + shift - 1 : yabai -m window --space 1 && yabai -m window --focus recent
+ctrl + shift - 2 : yabai -m window --space 2 && yabai -m window --focus recent
+ctrl + shift - 3 : yabai -m window --space 3 && yabai -m window --focus recent
+ctrl + shift - 4 : yabai -m window --space 4 && yabai -m window --focus recent
+ctrl + shift - 5 : yabai -m window --space 5 && yabai -m window --focus recent
+ctrl + shift - 6 : yabai -m window --space 6 && yabai -m window --focus recent
+ctrl + shift - 7 : yabai -m window --space 7 && yabai -m window --focus recent
+ctrl + shift - 8 : yabai -m window --space 8 && yabai -m window --focus recent
+ctrl + shift - 9 : yabai -m window --space 9 && yabai -m window --focus recent
 
 # Open / Focus on app
-shift + alt - s : open -a Safari
-shift + alt - o : open -a Mail 
-shift + alt - t : open -a Terminal
-shift + alt - c : open -a Visual\ Studio\ Code
+ctrl - s : open -a Safari
+ctrl - o : open -a Mail 
+ctrl - t : open -a Warp
