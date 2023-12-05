@@ -53,6 +53,9 @@ require('lazy').setup({
     end,
   },
 
+  -- Transparent background to match with terminal
+  {'xiyaowong/transparent.nvim'},
+
   -- Auto switch between light and dark  theme
   {
     "f-person/auto-dark-mode.nvim",
