@@ -2,6 +2,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+
 -- Install lazy.nvim as plugin manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -24,8 +25,9 @@ require('lazy').setup({
   -- Adding Copilot
   'github/copilot.vim',
 
-  -- Git related plugins
+  -- Git plugin
   'tpope/vim-fugitive',
+  -- Git browse
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
@@ -40,14 +42,15 @@ require('lazy').setup({
     opts = {},
   },
 
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
-
   -- Github theme for neovim
   {
     'projekt0n/github-nvim-theme',
     lazy = false, -- make sure we load this during startup
     priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require('github-theme').setup({
+      })
+    end,
   },
 
   -- Auto switch between light and dark  theme
@@ -76,26 +79,53 @@ require('lazy').setup({
         icons_enabled = true,
         component_separators = '|',
         section_separators = '',
+        theme = function()
+          local colors = {
+              darkgray = "#16161d",
+              gray = "#727169",
+              innerbg = nil,
+              outerbg = nil,
+              normal = "#7e9cd8",
+              insert = "#98bb6c",
+              visual = "#ffa066",
+              replace = "#e46876",
+              command = "#e6c384",
+          }
+          return {
+              inactive = {
+                  a = { fg = colors.gray, bg = colors.outerbg, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+              visual = {
+                  a = { fg = colors.darkgray, bg = colors.visual, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+              replace = {
+                  a = { fg = colors.darkgray, bg = colors.replace, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+              normal = {
+                  a = { fg = colors.darkgray, bg = colors.normal, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+              insert = {
+                  a = { fg = colors.darkgray, bg = colors.insert, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+              command = {
+                  a = { fg = colors.darkgray, bg = colors.command, gui = "bold" },
+                  b = { fg = colors.gray, bg = colors.outerbg },
+                  c = { fg = colors.gray, bg = colors.innerbg },
+              },
+          }
+        end
       },
     },
-  },
-
-  {
-    -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'nvim-treesitter/playground',
-    },
-    build = ':TSUpdate',
-    config = function()
-      require("nvim-treesitter.configs").setup {
-        highlight = {
-          enable = true, -- false will disable the whole extension
-          disable = {}, -- list of language that will be disabled
-        },
-      }
-    end,
   },
 
   -- Fuzzy Finder (files, lsp, etc)
@@ -104,7 +134,7 @@ require('lazy').setup({
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
-   },
+    },
   },
 
   -- Harpoon for quick navigation
@@ -221,34 +251,6 @@ require('lazy').setup({
         opts.desc = "Show documentation for what is under cursor"
         keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
       end
-
-      local capabilities = cmp_nvim_lsp.default_capabilities()
-
-      lspconfig["pyright"].setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-
-      lspconfig["lua_ls"].setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = { -- custom settings for lua
-        Lua = {
-          -- make the language server recognize "vim" global
-          diagnostics = {
-          globals = { "vim" },
-          },
-          workspace = {
-          -- make language server aware of runtime files
-          library = {
-            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-            [vim.fn.stdpath("config") .. "/lua"] = true,
-          },
-          },
-        },
-        },
-      })
-
     end
   },
 
@@ -271,25 +273,8 @@ require('lazy').setup({
           }
         }
       })
-
-      mason_lspconfig.setup({
-        ensure_installed = {
-          "tsserver",
-          "astro",
-          "html",
-          "cssls",
-          "tailwindcss",
-          "lua_ls",
-          "emmet_ls",
-          "prismals",
-          "pyright",
-          "clangd"
-        },
-        automatic_installation = true
-      })
     end
   },
-
   -- Floating term
   {'akinsho/toggleterm.nvim', version = "*", config = function()
     require("toggleterm").setup{
@@ -322,9 +307,6 @@ vim.o.clipboard = 'unnamedplus'
 -- Enable break indent
 vim.o.breakindent = true
 
--- Save undo history
-vim.o.undofile = true
-
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -338,9 +320,6 @@ vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
-
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
 
@@ -369,12 +348,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-
-vim.cmd('highlight! HarpoonInactive guibg=NONE guifg=#63698c')
-vim.cmd('highlight! HarpoonActive guibg=NONE guifg=white')
-vim.cmd('highlight! HarpoonNumberActive guibg=NONE guifg=#7aa2f7')
-vim.cmd('highlight! HarpoonNumberInactive guibg=NONE guifg=#7aa2f7')
-vim.cmd('highlight! TabLineFill guibg=NONE guifg=white')
-
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
