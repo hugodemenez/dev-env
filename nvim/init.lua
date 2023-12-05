@@ -138,7 +138,8 @@ require('lazy').setup({
   },
 
   -- Harpoon for quick navigation
-  {'ThePrimeagen/harpoon', config = function()
+  {
+    'ThePrimeagen/harpoon', config = function()
     require("telescope").load_extension('harpoon')
     -- Add keybindings
       vim.keymap.set({ 'n' }, '<leader>hm', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { noremap = true})
@@ -284,6 +285,17 @@ require('lazy').setup({
     }
   end
   },
+
+  -- Auto saving
+  {
+    "Pocco81/auto-save.nvim",
+    config = function()
+       require("auto-save").setup {
+        -- your config goes here
+        -- or just leave it empty :)
+       }
+    end,
+  }
 
 }, {})
 
