@@ -255,6 +255,73 @@ require('lazy').setup({
         opts.desc = "Show documentation for what is under cursor"
         keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
       end
+
+      local capabilities = cmp_nvim_lsp.default_capabilities()
+
+      lspconfig["html"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- configure typescript server with plugin
+      lspconfig["tsserver"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- configure css server
+      lspconfig["cssls"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- configure tailwindcss server
+      lspconfig["tailwindcss"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+
+      lspconfig["prismals"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      lspconfig["emmet_ls"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
+      })
+
+      lspconfig["pyright"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      lspconfig["lua_ls"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = { -- custom settings for lua
+        Lua = {
+          -- make the language server recognize "vim" global
+          diagnostics = {
+          globals = { "vim" },
+          },
+          workspace = {
+          -- make language server aware of runtime files
+          library = {
+            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            [vim.fn.stdpath("config") .. "/lua"] = true,
+          },
+          },
+        },
+        },
+      })
+
+      lspconfig["clangd"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach
+      })
     end
   },
 
@@ -277,6 +344,23 @@ require('lazy').setup({
           }
         }
       })
+
+      mason_lspconfig.setup({
+        ensure_installed = {
+          "tsserver",
+          "astro",
+          "html",
+          "cssls",
+          "tailwindcss",
+          "lua_ls",
+          "emmet_ls",
+          "prismals",
+          "pyright",
+          "clangd"
+        },
+        automatic_installation = true
+      })
+
     end
   },
   -- Floating term
@@ -348,7 +432,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>j', ':wincmd j<CR>', { noremap = true})
 vim.keymap.set({ 'n', 'v' }, '<leader>k', ':wincmd k<CR>', { noremap = true})
 vim.keymap.set({ 'n', 'v' }, '<leader>l', ':wincmd l<CR>', { noremap = true})
 vim.keymap.set({ 'n', 'v' }, '<leader>h', ':wincmd h<CR>', { noremap = true})
-vim.keymap.set({ 'n', 'v' }, '<leader>s', ':Telescope  find_files<CR>', { noremap = true})
+vim.keymap.set({ 'n', 'v' }, '<leader>f', ':Telescope  find_files<CR>', { noremap = true})
 vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], { noremap = true})
 
 -- Remap for dealing with word wrap

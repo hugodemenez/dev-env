@@ -13,7 +13,7 @@ yabai -m config mouse_action2 resize
 yabai -m mouse_drop_action swap
 
 # padding set to 96px
-yabai -m config top_padding 0
+yabai -m config top_padding 72
 yabai -m config bottom_padding 96
 yabai -m config left_padding 96
 yabai -m config right_padding 96
