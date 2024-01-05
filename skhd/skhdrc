@@ -19,4 +19,3 @@ ctrl + shift - 9 : yabai -m window --space 9 && yabai -m window --focus recent
 ctrl - s : open -a Safari
 ctrl - o : open -a Mail 
 ctrl - t : open -a Terminal
-ctrl - f : open -a Finder
