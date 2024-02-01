@@ -1,4 +1,4 @@
-return{
+return {
   -- Adding coding activity tracking
   'wakatime/vim-wakatime',
 
@@ -24,21 +24,24 @@ return{
   {
     "Pocco81/auto-save.nvim",
     config = function()
-       require("auto-save").setup {
+      require("auto-save").setup {
         -- your config goes here
         -- or just leave it empty :)
-       }
+      }
     end,
   },
 
   -- Floating term
-  {'akinsho/toggleterm.nvim', version = "*", config = function()
-    require("toggleterm").setup{
-      direction = 'float',
-      open_mapping = [[<C-\>]],
-      insert_mappings = false,
-    }
-  end
+  {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    config = function()
+      require("toggleterm").setup {
+        direction = 'float',
+        open_mapping = [[<C-\>]],
+        insert_mappings = false,
+      }
+    end
   },
 
 }

@@ -4,7 +4,10 @@ ctrl - m : yabai -m window --toggle zoom-fullscreen
 # balance out tree of windows (resize to occupy same area)
 ctrl - e : yabai -m space --balance
 
-# move window to space #
+# Rotate windows clock wise
+ctrl - r: yabai -m space --rotate 270
+
+# Switching between spaces
 ctrl + shift - 1 : yabai -m window --space 1 && yabai -m window --focus recent
 ctrl + shift - 2 : yabai -m window --space 2 && yabai -m window --focus recent
 ctrl + shift - 3 : yabai -m window --space 3 && yabai -m window --focus recent
@@ -15,7 +18,14 @@ ctrl + shift - 7 : yabai -m window --space 7 && yabai -m window --focus recent
 ctrl + shift - 8 : yabai -m window --space 8 && yabai -m window --focus recent
 ctrl + shift - 9 : yabai -m window --space 9 && yabai -m window --focus recent
 
+# Window sizing
+ctrl - h : yabai -m window --resize left:-20:0 ; yabai -m window --resize right:-20:0
+ctrl - j : yabai -m window --resize bottom:0:20 ; yabai -m window --resize top:0:20
+ctrl - k : yabai -m window --resize top:0:-20 ; yabai -m window --resize bottom:0:-20
+ctrl - l : yabai -m window --resize right:20:0 ; yabai -m window --resize left:20:0
+
 # Open / Focus on app
-ctrl - s : open -a Safari
+ctrl - s : open -a Arc
 ctrl - o : open -a Mail 
 ctrl - t : open -a Terminal
+ctrl - w : open -a Visual\ Studio\ Code

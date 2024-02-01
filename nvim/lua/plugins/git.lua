@@ -1,6 +1,10 @@
 return{
   -- Git plugin
-  'tpope/vim-fugitive',
-  -- Git browse
-  'tpope/vim-rhubarb',
+  {
+    'tpope/vim-fugitive',
+  },
+  {
+    -- Git browse
+    'tpope/vim-rhubarb',
+  },
 }

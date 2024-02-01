@@ -15,6 +15,7 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   }
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 -- Load lazy.nvim and plugins
@@ -30,7 +31,7 @@ vim.o.hlsearch = true
 vim.wo.number = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.o.mouse = "" -- "" : disable, v : enable in visual mode, a : enable in all modes
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -54,20 +55,24 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+-- Set vertical line delimiter
+vim.o.colorcolumn = '72'
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>g', ':Git<CR>', { noremap = true})
-vim.keymap.set({ 'n', 'v' }, '<leader>e', ':Explore<CR>', { noremap = true})
-vim.keymap.set({ 'n', 'v' }, '<leader>b', ':GBrowse<CR>', { noremap = true})
-vim.keymap.set({ 'n', 'v' }, '<leader>j', ':wincmd j<CR>', { noremap = true})
-vim.keymap.set({ 'n', 'v' }, '<leader>k', ':wincmd k<CR>', { noremap = true})
-vim.keymap.set({ 'n', 'v' }, '<leader>l', ':wincmd l<CR>', { noremap = true})
-vim.keymap.set({ 'n', 'v' }, '<leader>h', ':wincmd h<CR>', { noremap = true})
-vim.keymap.set({ 'n', 'v' }, '<leader>f', ':Telescope  find_files<CR>', { noremap = true})
-vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], { noremap = true})
+vim.keymap.set({ 'n', 'v' }, '<leader>b', ':GBrowse<CR>', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>g', ':Git<CR>', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>e', ':Explore<CR>', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>j', ':wincmd j<CR>', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>k', ':wincmd k<CR>', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>l', ':wincmd l<CR>', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>h', ':wincmd h<CR>', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>f', ':Telescope  find_files<CR>', { noremap = true })
+vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], { noremap = true })
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
